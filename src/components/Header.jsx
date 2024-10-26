@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import menuIcon from '../assets/menu.png'; // Assuming the menu icon is located in the 'assets' folder
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  // Check for user in localStorage
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   // Function to toggle the mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+    navigate('/login'); // Redirect to login page after logout
   };
 
   return (
@@ -21,30 +38,39 @@ function Header() {
               </Link>
             </div>
             {/* Primary Nav for larger screens */}
-           
           </div>
+
           {/* Secondary Nav for larger screens */}
           <div className="hidden md:flex items-center space-x-1">
-          <div className="hidden md:flex items-center space-x-1">
-              <Link to="/" className="text-lg py-5 px-3 text-black font-semibold hover:text-red-700 ">
-                Home
-              </Link>
-              <Link to="/categories" className="text-lg py-5 px-3 text-black font-semibold hover:text-red-700 ">
-                Categories
-              </Link>
-              <Link to="/aboutus" className="text-lg py-5 px-3 text-black font-semibold hover:text-red-700 ">
-                About
-              </Link>
-              <Link to="/contactus" className="text-lg py-5 px-3 text-black font-semibold hover:text-red-700 ">
-                Contact
-              </Link>
-            </div>
-            <Link to="/cart" className="text-lg py-5 px-3 text-black font-semibold hover:text-red-700 ">
+            <Link to="/" className="text-lg py-5 px-3 text-black font-semibold hover:text-red-700">
+              Home
+            </Link>
+            <Link to="/categories" className="text-lg py-5 px-3 text-black font-semibold hover:text-red-700">
+              Categories
+            </Link>
+            <Link to="/aboutus" className="text-lg py-5 px-3 text-black font-semibold hover:text-red-700">
+              About
+            </Link>
+            <Link to="/contactus" className="text-lg py-5 px-3 text-black font-semibold hover:text-red-700">
+              Contact
+            </Link>
+            <Link to="/cart" className="text-lg py-5 px-3 text-black font-semibold hover:text-red-700">
               Cart
             </Link>
-            <Link to="/login" className="py-2 px-3 bg-blue-500 text-white rounded hover:bg-blue-600">
-              Login
-            </Link>
+
+            {/* Conditional Rendering for Login/Logout */}
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="py-2 px-3 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link to="/login" className="py-2 px-3 bg-blue-500 text-white rounded hover:bg-blue-600">
+                Login
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button for small screens */}
@@ -83,9 +109,23 @@ function Header() {
           <Link to="/cart" className="text-white py-2 px-3 hover:bg-gray-700" onClick={toggleMenu}>
             Cart
           </Link>
-          <Link to="/login" className="text-white py-2 px-3 hover:bg-gray-700" onClick={toggleMenu}>
-            Login
-          </Link>
+
+          {/* Conditional Rendering for Mobile Menu */}
+          {isLoggedIn ? (
+            <button
+              onClick={() => {
+                handleLogout();
+                toggleMenu();
+              }}
+              className="text-white py-2 px-3 hover:bg-gray-700"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="text-white py-2 px-3 hover:bg-gray-700" onClick={toggleMenu}>
+              Login
+            </Link>
+          )}
         </nav>
       </div>
     </header>
