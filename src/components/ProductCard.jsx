@@ -16,7 +16,7 @@ function ProductCard({ data }) {
                             <div className="p-4">
                                 <h3 className="font-bold text-lg">{value.title}</h3>
                                 <p className="text-white text-lg font-semibold mt-2">${value.price}</p>
-                                <a href={`/categories`} className="block mt-4 text-white hover:underline">
+                                <a href={`/product/${value.id}`} className="block mt-4 text-white hover:underline">
                                     View Details
                                 </a>
                             </div>
