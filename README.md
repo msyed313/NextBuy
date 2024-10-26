@@ -1,8 +1,14 @@
-# React + Vite
+NextBuy is a fully responsive e-commerce platform designed to offer a smooth shopping experience. The platform includes features like product listings, detailed product pages, shopping cart functionality, a multi-step checkout process, order history, and an admin panel for managing products and user accounts. It is built using modern web technologies for a clean, efficient, user interface.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Technologies Used
+Frontend:
+   React.js
+   Redux Toolkit
+   Tailwind CSS
+   Formik
+   Yup
+   Vite (for fast build and development)
+Backend:
+   Platzi Fake Store API
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+//i use this api instead of rapidapi bcz rapidapi is not working properly 
